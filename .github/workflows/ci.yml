@@ -31,8 +31,8 @@ jobs:
         uses: taiki-e/install-action@v2
         with:
           tool: protoc@3.21.12
-      - name: Rust cache
-        uses: Swatinem/rust-cache@v2
+      - name: Rust sccache
+        uses: mozilla-actions/sccache-action@v0.0.3
         with:
           prefix-key: clippy
       - name: Run clippy
@@ -48,8 +48,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           target: wasm32-unknown-unknown
-      - name: Rust cache
-        uses: Swatinem/rust-cache@v2
+      - name: Rust sccache
+        uses: mozilla-actions/sccache-action@v0.0.3
         with:
           prefix-key: clippy-web
           workspaces: |
@@ -127,8 +127,8 @@ jobs:
           sudo apt-get update
           sudo apt install -y libxcb-xfixes0-dev mesa-vulkan-drivers
 
-      - name: Rust cache
-        uses: Swatinem/rust-cache@v2
+      - name: Rust sccache
+        uses: mozilla-actions/sccache-action@v0.0.3
         with:
           prefix-key: golden-images
           cache-on-failure: true

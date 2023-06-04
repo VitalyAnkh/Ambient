@@ -3,7 +3,7 @@ use std::sync::Arc;
 use ambient_core::gpu_ecs::{GpuWorldShaderModuleKey, ENTITIES_BIND_GROUP};
 use ambient_ecs::{EntityId, World};
 use ambient_gpu::{
-    gpu::{Gpu, GpuKey},
+    gpu::{Gpu},
     multi_buffer::TypedMultiBuffer,
     shader_module::{BindGroupDesc, ComputePipeline, Shader, ShaderIdent, ShaderModule},
     typed_buffer::TypedBuffer,
@@ -220,7 +220,7 @@ impl RendererCollect {
     pub fn run(
         &self,
         gpu: &Gpu,
-        assets: &AssetCache,
+        _assets: &AssetCache,
         encoder: &mut wgpu::CommandEncoder,
         _post_submit: &mut Vec<PostSubmitFunc>,
         mesh_meta_bind_group: &wgpu::BindGroup,
