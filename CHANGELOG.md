@@ -40,7 +40,11 @@ These PRs are not directly user-facing, but improve the development experience. 
 
 <!-- - **Client**: The client can now **run on the web**. -->
 
+- The animation system has been reworked; see the [animation documentation](https://ambientrun.github.io/Ambient/reference/animations.html) for details.
+
 #### Other
+
+- Added a new `ImageFromUrl` ui component, which can load images from assets or urls. It also supports rounded corners, borders and a fallback background color. See the [image example](https://github.com/AmbientRun/Ambient/blob/main/guest/rust/examples/ui/image/src/client.rs) for more details.
 
 #### Examples
 

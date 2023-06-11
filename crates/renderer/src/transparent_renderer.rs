@@ -17,7 +17,10 @@ use super::{
     double_sided, get_gpu_primitive_id, primitives, FSMain, RendererResources, RendererShader,
     SharedMaterial,
 };
-use crate::{bind_groups::BindGroups, is_transparent, transparency_group, RendererConfig};
+use crate::{
+    bind_groups::BindGroups, is_transparent, scissors, set_scissors_safe, transparency_group,
+    RendererConfig,
+};
 
 pub struct TransparentRendererConfig {
     pub renderer_config: RendererConfig,
@@ -191,8 +194,10 @@ impl TransparentRenderer {
     #[ambient_profiling::function]
     pub fn render<'a>(
         &'a self,
+        world: &World,
         render_pass: &mut wgpu::RenderPass<'a>,
         bind_groups: &BindGroups<'a>,
+        render_target_size: wgpu::Extent3d,
     ) {
         let mut is_bound = false;
         // TODO: keep track of the state to avoid state switches (same pipeline multiple times etc.)
@@ -217,6 +222,11 @@ impl TransparentRenderer {
                     &[],
                 );
                 // entry.shader.pipeline.bind(render_pass, MATERIAL_BIND_GROUP, entry.material.bind());
+                set_scissors_safe(
+                    render_pass,
+                    render_target_size,
+                    world.get(entry.id, scissors()).ok(),
+                );
 
                 render_pass.draw_indexed(
                     metadata.index_offset..(metadata.index_offset + metadata.index_count),
